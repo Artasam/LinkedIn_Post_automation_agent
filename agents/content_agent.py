@@ -40,10 +40,13 @@ CRITICAL RULES:
   3. ALWAYS put a blank line between paragraphs (double newline)
   4. NEVER use bullet points or numbered lists
   5. NEVER start with "I" or "In today's"
-  6. The first line MUST contain either a number, a "?" or "!" character,
+  6. NEVER use promotional calls-to-action like "Try X today", "Implement X now",
+     "Download X", "Sign up for X", "Get started with X" — these get flagged as spam.
+     Instead, end with a thought-provoking QUESTION that invites discussion.
+  7. The first line MUST contain either a number, a "?" or "!" character,
      or one of these power starters:
      "Here's why...", "Nobody talks about...", "Stop ignoring...",
-     "This changes everything:", "The uncomfortable truth:", 
+     "This changes everything:", "The uncomfortable truth:",
      "Most people don't know...", "X just happened and..."
 """
 
@@ -71,8 +74,9 @@ Paragraph 3 — INSIGHT: The deeper implication or surprising angle.
 
 [blank line]
 
-Paragraph 4 — ACTION: One concrete, specific thing the reader can do TODAY.
-              Start with an action verb. (15-25 words)
+Paragraph 4 — INSIGHT: The deeper practical implication or what this means
+              for the future of AI. One concrete observation. (20-30 words)
+              NOTE: Do NOT write "Try X today" or "Implement X now" — write an insight.
 
 [blank line]
 

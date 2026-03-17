@@ -34,6 +34,10 @@ concurrency:
   group: linkedin-daily-post
   cancel-in-progress: false
 
+# Required permissions for post history git push (step 7)
+permissions:
+  contents: write
+
 jobs:
   post-to-linkedin:
     name: "Generate & Publish AI Post"
@@ -130,16 +134,36 @@ jobs:
           python main.py $DRY_RUN_FLAG
 
       # ── 7. Persist post history ──────────────────────────────────────────────
-      # Commits post_history.json back to repo so deduplication
-      # system remembers past topics across stateless GitHub runners.
+      # Commits post_history.json back to repo so deduplication system
+      # remembers past topics across stateless GitHub Actions runners.
+      # Requires: permissions.contents = write (set above).
       - name: "Persist post history"
         if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          if [ ! -f post_history.json ]; then
+            echo "post_history.json not found — skipping commit."
+            exit 0
+          fi
+
+          # Configure git identity
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add post_history.json 2>/dev/null || true
-          git diff --staged --quiet || git commit -m "chore: update post history [skip ci]"
-          git push || true
+
+          # Use token-authenticated remote URL to bypass 403
+          git remote set-url origin             https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git
+
+          git fetch origin
+          git add post_history.json
+
+          if git diff --staged --quiet; then
+            echo "No changes to post_history.json — skipping commit."
+          else
+            git commit -m "chore: update post history [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+            echo "post_history.json committed and pushed successfully."
+          fi
 
       # ── 8. Job summary ───────────────────────────────────────────────────────
       - name: "Write job summary"
