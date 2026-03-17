@@ -45,7 +45,7 @@ This project is a **production-ready multi-agent AI system** that runs fully on 
 4. Uses **weighted random sampling** to guarantee topic variety
 5. Uses **Llama 3.3 70B Versatile** via Groq to select and write a compelling post
 6. Generates a professional, engagement-optimised post (max **300 words**)
-7. Adds **4–6** contextual AI hashtags
+7. Adds **3–5** contextual AI hashtags
 8. Attaches a **professional image** via Pexels → Unsplash → SVG fallback
 9. Publishes to LinkedIn via the official **API v2**
 10. Runs automatically every day at **09:00 UTC** via GitHub Actions
@@ -109,14 +109,22 @@ This project is a **production-ready multi-agent AI system** that runs fully on 
                         └─────────────┬───────────────┘
                                       │
                         ┌─────────────▼─────────────┐
-                        │   NODE 3: generate_hashtags │
-                        │   agents/hashtag_agent.py   │
-                        │  • Temp: 0.4               │
-                        │  • Output: 4-6 hashtags     │
+                        │   NODE 3: safety_check      │
+                        │   tools/safety_tool.py      │
+                        │  • Tier 1: rule-based       │
+                        │  • Tier 2: LLM moderation   │
+                        │  • Fail → safe fallback     │
                         └─────────────┬───────────────┘
                                       │
                         ┌─────────────▼─────────────┐
-                        │   NODE 4: generate_image    │
+                        │   NODE 4: generate_hashtags │
+                        │   agents/hashtag_agent.py   │
+                        │  • Temp: 0.4               │
+                        │  • Output: 3–5 hashtags     │
+                        └─────────────┬───────────────┘
+                                      │
+                        ┌─────────────▼─────────────┐
+                        │   NODE 5: generate_image    │
                         │   tools/image_tool.py       │
                         │                             │
                         │  Engine 1: Pexels API       │
@@ -126,12 +134,12 @@ This project is a **production-ready multi-agent AI system** that runs fully on 
                         └─────────────┬───────────────┘
                                       │
                         ┌─────────────▼─────────────┐
-                        │   NODE 5: assemble_post     │
+                        │   NODE 6: assemble_post     │
                         │   post_text + hashtags      │
                         └─────────────┬───────────────┘
                                       │
                         ┌─────────────▼─────────────┐
-                        │   NODE 6: publish_post      │
+                        │   NODE 7: publish_post      │
                         │   tools/linkedin_tool.py    │
                         │                             │
                         │  Text post: POST ugcPosts   │
@@ -266,7 +274,7 @@ linkedin-ai-agent/
 │   ├── __init__.py
 │   ├── topic_agent.py       # News fetch → rank → history filter → LLM selection
 │   ├── content_agent.py     # Groq LLM post (temp 0.8, max 700 tokens, min 130 words)
-│   └── hashtag_agent.py     # 4–6 hashtags (temp 0.4, max 256 tokens)
+│   └── hashtag_agent.py     # 3–5 hashtags (temp 0.4, max 256 tokens)
 │
 ├── tools/
 │   ├── __init__.py
@@ -355,10 +363,11 @@ python main.py
 | Agent | Temperature | Max Tokens | Purpose |
 |-------|-------------|------------|---------|
 | Topic Agent | 0.5 | 600 | Select 5 varied topics |
-| Content Agent | 0.8 | 700 | Write LinkedIn post |
-| Hashtag Agent | 0.4 | 256 | Generate 4–6 hashtags |
+| Content Agent | 0.8 | 700 | Write LinkedIn post (130–300 words) |
+| Safety Tool (Tier 2) | — | 400 | LLM moderation check |
+| Hashtag Agent | 0.4 | 256 | Generate 3–5 hashtags |
 
-**Total TPM per run:** ~2,000–2,500 — well within the 6,000 TPM limit.
+**Total TPM per run:** ~3,500–4,500 (5 LLM calls: topic + content + safety + hashtag + retry) — within the 6,000 TPM limit.
 
 ### Available Models
 
@@ -416,7 +425,7 @@ Copy the `sub` field → `LINKEDIN_PERSON_ID=abc123XYZ`
 | `PEXELS_API_KEY` | Recommended | Free photos — pexels.com/api |
 | `UNSPLASH_ACCESS_KEY` | Recommended | Free photos — unsplash.com/developers |
 | `NEWS_API_KEY` | Optional | 100 req/day — newsapi.org |
-| `GITHUB_TOKEN` | Optional | Raises GitHub API to 5,000 req/hr |
+
 
 ### Workflow — 8 Steps
 
@@ -426,23 +435,34 @@ Copy the `sub` field → `LINKEDIN_PERSON_ID=abc123XYZ`
 | 2 | Set up Python 3.13 | Install Python with pip cache |
 | 3 | Install dependencies | `pip install -r requirements.txt` |
 | 4 | Verify required secrets | Fail fast before API calls |
-| 5 | Smoke-test imports | Validate packages load |
-| 6 | Run LinkedIn AI Agent | Full pipeline → publish post |
-| 7 | Persist post history | Commit `post_history.json` → dedup works across runs |
-| 8 | Write job summary | Log result to Actions dashboard |
+| 5 | Smoke-test imports | Validate all packages load correctly |
+| 6 | Run LinkedIn AI Agent | Full 7-node pipeline → publish post |
+| 7 | Persist post history | Commit `post_history.json` back to repo |
+| 8 | Write job summary | Log result table to Actions dashboard |
 
 ### Key: Step 7 — Persisting Post History
 
 GitHub Actions runners are stateless — `post_history.json` would reset each run without Step 7. The workflow commits the file back to the repo so the anti-repetition system works across all daily runs:
 
 ```yaml
+# Add this at workflow top level (required for git push):
+permissions:
+  contents: write
+
+# Step 7:
 - name: "Persist post history"
   if: success()
   run: |
     git config user.name "github-actions[bot]"
+    git config user.email "github-actions[bot]@users.noreply.github.com"
+    git fetch origin
     git add post_history.json
-    git diff --staged --quiet || git commit -m "chore: update post history [skip ci]"
-    git push || true
+    if git diff --staged --quiet; then
+      echo "No changes — skipping commit."
+    else
+      git commit -m "chore: update post history [skip ci]"
+      git push origin HEAD:${{ github.ref_name }}
+    fi
 ```
 
 ### Schedule
@@ -470,7 +490,6 @@ GROQ_MAX_TOKENS=700          # Content agent needs 700 for full 130-300 word pos
 # ── NEWS SOURCES ─────────────────────────────────────────────────────────────
 RSS_MAX_ARTICLES_PER_FEED=8  # Max articles per source (8 sources × 8 = 64 max)
 NEWS_API_KEY=                # Optional — newsapi.org
-GITHUB_TOKEN=                # Optional — higher GitHub rate limit
 
 # ── AGENT BEHAVIOUR ───────────────────────────────────────────────────────────
 TOPIC_CANDIDATE_COUNT=5      # Topics LLM evaluates
@@ -478,8 +497,8 @@ MULTI_TOPIC_DRAFTS=1         # Set to 3 for multi-draft best-of selection
 
 # ── POST CONSTRAINTS (hardcoded in settings.py) ───────────────────────────────
 # POST_MAX_WORDS=300          # Max words per post
-# POST_MIN_HASHTAGS=4
-# POST_MAX_HASHTAGS=6
+# POST_MIN_HASHTAGS=3
+# POST_MAX_HASHTAGS=5
 
 # ── IMAGE GENERATION ─────────────────────────────────────────────────────────
 ENABLE_IMAGE_GENERATION=true    # Recommended: true (SVG always works as fallback)
@@ -544,27 +563,28 @@ python main.py
 Real post generated on 2026-03-17:
 
 ```
-90% of neural networks are vulnerable to privacy attacks.
+95% of code generation models fail to deliver optimal results!
 
-Researchers have discovered that learnability and privacy are fundamentally
-entangled. This challenges prior approaches to privacy preservation and
-demands a completely new paradigm for secure neural network design.
+Code generation using reinforcement learning has been introduced, relying
+on verifiable rewards from unit test pass rates to evolve code and test LLMs,
+showing promising results in improving code quality.
 
-The implications are significant: retraining all weights is no longer a
-viable solution. Teams building production AI systems need to account for
-this entanglement from the architecture design phase, not as an afterthought.
+Most people miss the fact that adversarial evolving can significantly enhance
+code generation capabilities, leading to more efficient and effective coding
+processes. This novel approach has the potential to transform software development.
 
-Start auditing your neural network training pipelines today for
-privacy-leakability exposure.
+The future of AI code generation will involve more sophisticated models that can
+autonomously improve code quality and reduce development time — a key shift
+in how engineering teams operate.
 
-What's your team's current approach to balancing model performance
-with privacy guarantees?
+What are the potential risks of relying on AI-generated code in critical systems?
 
-#AI #MachineLearning #NeuralNetworkSecurity #DeepLearningPrivacy
-#ArtificialIntelligence
+#AI #MachineLearning #CodeGeneration #ReinforcementLearning #GenerativeAI
 ```
 
-> **Post ID:** `urn:li:share:7439402776255848448`
+> **Post ID:** `urn:li:share:7439770837118959616`
+> **Image:** Professional photo by Tara Winstead via Pexels (Engine 1)
+> **Safety:** Both tiers PASSED · Score: 100.0/100
 
 ---
 
