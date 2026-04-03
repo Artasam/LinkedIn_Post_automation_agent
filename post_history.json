@@ -1,11 +1,5 @@
 [
   {
-    "title": "Iran's Alleged Use of AI for Narrative Control",
-    "source": "Fox News",
-    "post_id": "urn:li:share:7439045393461534720",
-    "published_at": "2026-03-15T20:30:35.904381+00:00"
-  },
-  {
     "title": "Unlocking Large Language Models with Neuron-Aware Data Selection",
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7439381467996135424",
@@ -178,5 +172,11 @@
     "source": "ComputerWeekly.com",
     "post_id": "urn:li:share:7445341108496318468",
     "published_at": "2026-04-02T05:27:28.357776+00:00"
+  },
+  {
+    "title": "How to Generate More Diverse and Comprehensive Responses to Open-Ended Prompts",
+    "source": "ArXiv Research",
+    "post_id": "urn:li:share:7445715048452227073",
+    "published_at": "2026-04-03T06:13:22.580277+00:00"
   }
 ]
