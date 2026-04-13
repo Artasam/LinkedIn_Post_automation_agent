@@ -1,11 +1,5 @@
 [
   {
-    "title": "Uncovering the Entanglement of Learnability and Privacy in Neural Networks",
-    "source": "ArXiv Research",
-    "post_id": "urn:li:share:7439402776255848448",
-    "published_at": "2026-03-16T20:10:40.292450+00:00"
-  },
-  {
     "title": "Revolutionary AI Trading Agents: ATLAS by General Intelligence Capital",
     "source": "GitHub",
     "post_id": "urn:li:share:7439410254880088064",
@@ -178,5 +172,11 @@
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7448261981897400321",
     "published_at": "2026-04-10T06:53:59.288726+00:00"
+  },
+  {
+    "title": "How to Stop Your AI Model from Hallucinating: Decoupled Confidence Calibration for Large Vision-Language Models",
+    "source": "ArXiv Research",
+    "post_id": "urn:li:share:7449331258284777472",
+    "published_at": "2026-04-13T05:42:54.152294+00:00"
   }
 ]
