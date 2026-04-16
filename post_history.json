@@ -1,11 +1,5 @@
 [
   {
-    "title": "Unlocking Cooperative Behavior with Large Language Models",
-    "source": "ArXiv Research",
-    "post_id": "urn:li:share:7439414966874648577",
-    "published_at": "2026-03-16T20:59:06.191287+00:00"
-  },
-  {
     "title": "Revolutionizing Multi-Agent Systems with LLMs",
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7439416480213086208",
@@ -178,5 +172,11 @@
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7450059635195092992",
     "published_at": "2026-04-15T05:57:13.207544+00:00"
+  },
+  {
+    "title": "Exposing the Hidden Flaws in LLM Reasoning",
+    "source": "ArXiv Research",
+    "post_id": "urn:li:share:7450421457337147392",
+    "published_at": "2026-04-16T05:54:57.821464+00:00"
   }
 ]
