@@ -1,11 +1,5 @@
 [
   {
-    "title": "Revolutionizing Robotics with Specification-Aware Distribution Shaping",
-    "source": "ArXiv Research",
-    "post_id": "urn:li:share:7440330089768054784",
-    "published_at": "2026-03-19T09:35:28.294187+00:00"
-  },
-  {
     "title": "Revolutionizing 3D Object Generation with DreamPartGen",
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7440691927055769600",
@@ -178,5 +172,11 @@
     "source": "Wikipedia",
     "post_id": "urn:li:share:7452234335409139712",
     "published_at": "2026-04-21T05:58:42.169121+00:00"
+  },
+  {
+    "title": "Simplifying Vision-Language-Action Models with a Unified Framework",
+    "source": "ArXiv Research",
+    "post_id": "urn:li:share:7452596308445421568",
+    "published_at": "2026-04-22T05:57:02.762120+00:00"
   }
 ]
