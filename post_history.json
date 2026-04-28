@@ -1,11 +1,5 @@
 [
   {
-    "title": "Revolutionizing Video Generation with LumosX: Personalized Content Creation",
-    "source": "ArXiv Research",
-    "post_id": "urn:li:share:7441784774358208512",
-    "published_at": "2026-03-23T09:55:52.512840+00:00"
-  },
-  {
     "title": "Revolutionizing Video World Models with Content-Aware Caching",
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7442145110567419904",
@@ -178,5 +172,11 @@
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7454407912262615040",
     "published_at": "2026-04-27T05:55:42.768100+00:00"
+  },
+  {
+    "title": "Turbocharge Your NLP Deployments with Rust-Powered LLM Inference",
+    "source": "Pypi.org",
+    "post_id": "urn:li:share:7454777667150655488",
+    "published_at": "2026-04-28T06:24:59.345822+00:00"
   }
 ]
