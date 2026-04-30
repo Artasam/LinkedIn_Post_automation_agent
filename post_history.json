@@ -1,11 +1,5 @@
 [
   {
-    "title": "Accelerating Multimodal LLMs with Speculative Perception and Planning",
-    "source": "ArXiv Research",
-    "post_id": "urn:li:share:7442506743902806022",
-    "published_at": "2026-03-25T09:44:43.089351+00:00"
-  },
-  {
     "title": "Debunking LLM Biases in Code Evaluation: A Comparative Study",
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7442871664926908416",
@@ -178,5 +172,11 @@
     "source": "CNBC",
     "post_id": "urn:li:share:7455138737316921344",
     "published_at": "2026-04-29T06:19:45.338299+00:00"
+  },
+  {
+    "title": "How to Optimize ADMM for Faster Convergence in Real-World Applications",
+    "source": "ArXiv Research",
+    "post_id": "urn:li:share:7455501361682464768",
+    "published_at": "2026-04-30T06:20:41.565875+00:00"
   }
 ]
