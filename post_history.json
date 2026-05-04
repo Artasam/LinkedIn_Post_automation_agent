@@ -1,11 +1,5 @@
 [
   {
-    "title": "Revolutionizing Facial Expression Editing with PixelSmile",
-    "source": "ArXiv Research",
-    "post_id": "urn:li:share:7443231879664934913",
-    "published_at": "2026-03-27T09:46:09.099790+00:00"
-  },
-  {
     "title": "Breakthrough in Video Diffusion Models: PackForcing Achieves Long Context Inference",
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7443590109649641472",
@@ -178,5 +172,11 @@
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7455880177294688256",
     "published_at": "2026-05-01T07:25:58.079022+00:00"
+  },
+  {
+    "title": "What Happens When AI Chatbots Expose Sensitive Patient Data?",
+    "source": "ArXiv Research",
+    "post_id": "urn:li:share:7456949423143620608",
+    "published_at": "2026-05-04T06:14:46.175061+00:00"
   }
 ]
