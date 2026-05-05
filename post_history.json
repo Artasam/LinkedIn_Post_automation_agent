@@ -1,11 +1,5 @@
 [
   {
-    "title": "Breakthrough in Video Diffusion Models: PackForcing Achieves Long Context Inference",
-    "source": "ArXiv Research",
-    "post_id": "urn:li:share:7443590109649641472",
-    "published_at": "2026-03-28T09:29:37.601881+00:00"
-  },
-  {
     "title": "Bitcoin Miners' AI Transition: A $79,995 Gamble",
     "source": "CoinDesk",
     "post_id": "urn:li:share:7443952424693923840",
@@ -178,5 +172,11 @@
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7456949423143620608",
     "published_at": "2026-05-04T06:14:46.175061+00:00"
+  },
+  {
+    "title": "How to Make Reinforcement Learning More Reliable in Robotics",
+    "source": "ArXiv Research",
+    "post_id": "urn:li:share:7457310734503276546",
+    "published_at": "2026-05-05T06:10:29.994986+00:00"
   }
 ]
