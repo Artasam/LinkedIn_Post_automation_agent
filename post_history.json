@@ -1,11 +1,5 @@
 [
   {
-    "title": "Bitcoin Miners' AI Transition: A $79,995 Gamble",
-    "source": "CoinDesk",
-    "post_id": "urn:li:share:7443952424693923840",
-    "published_at": "2026-03-29T09:29:20.268587+00:00"
-  },
-  {
     "title": "How to Streamline Your AI Workflow with MLflow",
     "source": "C-sharpcorner.com",
     "post_id": "urn:li:share:7443988200538185728",
@@ -178,5 +172,11 @@
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7457310734503276546",
     "published_at": "2026-05-05T06:10:29.994986+00:00"
+  },
+  {
+    "title": "Demystifying Large Language Models: What You Need to Know",
+    "source": "Hackaday",
+    "post_id": "urn:li:share:7457677030134939648",
+    "published_at": "2026-05-06T06:26:01.711233+00:00"
   }
 ]
