@@ -1,11 +1,5 @@
 [
   {
-    "title": "What's Next for Large Language Models: Trends and Innovations",
-    "source": "Wikipedia",
-    "post_id": "urn:li:share:7443996680485490688",
-    "published_at": "2026-03-29T12:25:11.868387+00:00"
-  },
-  {
     "title": "Run Large Language Models on Your Laptop: A Game-Changer for AI Development",
     "source": "Pypi.org",
     "post_id": "urn:li:share:7444253707434622979",
@@ -178,5 +172,11 @@
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7458040085607976960",
     "published_at": "2026-05-07T06:28:40.440683+00:00"
+  },
+  {
+    "title": "How to Leverage Open-Source AI Projects for Real-World Applications",
+    "source": "GitHub",
+    "post_id": "urn:li:share:7458408538705514496",
+    "published_at": "2026-05-08T06:52:46.706661+00:00"
   }
 ]
