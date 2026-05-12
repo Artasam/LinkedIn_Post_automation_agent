@@ -1,11 +1,5 @@
 [
   {
-    "title": "How to Optimize Large Language Models for Real-World Applications",
-    "source": "ArXiv Research",
-    "post_id": "urn:li:share:7444619857385639936",
-    "published_at": "2026-03-31T05:41:28.952812+00:00"
-  },
-  {
     "title": "Unlocking the Power of AI Code Review: A New Local Solution for Pre-Commit Checks",
     "source": "Pypi.org",
     "post_id": "urn:li:share:7444984967752876032",
@@ -178,5 +172,11 @@
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7459492588602048512",
     "published_at": "2026-05-11T06:40:24.077783+00:00"
+  },
+  {
+    "title": "How to Supercharge Your Large Language Models with Modular Skills",
+    "source": "ArXiv Research",
+    "post_id": "urn:li:share:7459852880531922944",
+    "published_at": "2026-05-12T06:32:04.353058+00:00"
   }
 ]
