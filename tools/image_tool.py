@@ -267,6 +267,66 @@ def _fetch_unsplash(topic_title: str) -> Optional[str]:
 # Generates realistic AI images from text prompts.
 # ══════════════════════════════════════════════════════════════════════════════
 
+def _refine_topic_for_image(topic_title: str) -> str:
+    """Use Groq LLM to refine the topic title into a visual scene description."""
+    try:
+        from langchain_groq import ChatGroq
+        from langchain_core.messages import HumanMessage, SystemMessage
+        
+        llm = ChatGroq(
+            api_key=settings.GROQ_API_KEY,
+            model="llama-3.3-70b-versatile",
+            temperature=0.7,
+            max_tokens=150,
+        )
+        
+        messages = [
+        SystemMessage(content=(
+            "You are a world-class visual prompt engineer and cinematic art director with 20 years of "
+            "experience creating award-winning LinkedIn banner imagery for Fortune 500 companies. "
+            "Your sole job is to transform a topic title into a breathtaking, photorealistic visual scene "
+            "that perfectly represents the topic's essence through imagery alone — no text, ever. "
+
+            "STRICT OUTPUT RULES: "
+            "- Return ONLY the scene description. No preamble, no explanation, no quotes, no extra text. "
+            "- Maximum 2 crisp, vivid sentences. "
+            "- Every word must serve a visual purpose. "
+
+            "YOUR SCENE MUST INCLUDE ALL OF THESE LAYERS: "
+            "1. SUBJECT: The dominant visual metaphor or object that instantly communicates the topic. "
+            "2. HUMAN ELEMENT: Professional human figures, hands, silhouettes, or interactions where relevant. "
+            "3. ENVIRONMENT: A specific, detailed setting (boardroom, data center, sky, cityscape, lab). "
+            "4. LIGHTING MOOD: Cinematic lighting style (golden hour, cool blue neon, dramatic rim light, soft diffused). "
+            "5. COLOR PALETTE: 2-3 dominant colors that reflect the topic's emotional tone. "
+            "6. DEPTH & COMPOSITION: Foreground detail, midground action, background atmosphere. "
+            "7. TEXTURE & DETAIL: Surface materials, particle effects, atmospheric haze, reflections. "
+
+            "STYLE REFERENCES TO EMULATE: "
+            "Shot on Hasselblad medium format, Unreal Engine 5 cinematic realism, "
+            "Behance top-rated commercial photography, Netflix documentary visual style. "
+
+            "ABSOLUTE PROHIBITIONS: "
+            "Never include: text, words, letters, numbers, signs, labels, watermarks, "
+            "logos, captions, symbols, or any readable inscription anywhere in the scene. "
+
+            "THINK LIKE THIS: If a viewer saw this image with zero context, "
+            "they should instantly understand the topic through visuals alone. "
+            "Make it so powerful, relevant, and stunning that it stops the scroll."
+        )),
+            HumanMessage(content=topic_title)
+        ]
+        
+        response = llm.invoke(messages)
+        refined_topic = response.content.strip()
+        
+        if refined_topic:
+            return refined_topic
+    except Exception as exc:
+        logger.warning("Groq image topic refinement failed: %s", exc)
+        
+    return topic_title
+
+
 def _fetch_pollinations(topic_title: str) -> Optional[str]:
     """
     Generate an enhanced and realistic picture using Pollinations AI.
@@ -274,9 +334,13 @@ def _fetch_pollinations(topic_title: str) -> Optional[str]:
     """
     from urllib.parse import quote_plus
 
+    refined_topic = _refine_topic_for_image(topic_title)
+    logger.info("Original topic: '%s'", topic_title)
+    logger.info("Refined visual topic: '%s'", refined_topic)
+
     prompt = (
         # 🎯 Core Subject
-        f"LinkedIn professional banner, subject: {topic_title}. "
+        f"LinkedIn professional banner, subject: {refined_topic}. "
 
         # 📷 Camera & Lens
         f"Shot on Hasselblad H6D-100c medium format camera, "
@@ -314,7 +378,7 @@ def _fetch_pollinations(topic_title: str) -> Optional[str]:
 
     url = (
         f"https://image.pollinations.ai/prompt/{quote_plus(prompt)}"
-        f"?width=2400&height=630&nologo=true&model=flux&enhance=true&seed=42"
+        f"?width=2400&height=1200&nologo=true&model=flux&enhance=true&seed=42"
     )
 
     try:
