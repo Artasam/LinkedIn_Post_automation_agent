@@ -9,9 +9,9 @@ LIVE-TESTED ENGINES (2026-03-17):
 ❌ Together AI       — HTTP 402 (credits required)
 ❌ Stability AI      — HTTP 402 (paid subscription required)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅ ENGINE 1 — Pexels API     : FREE, 200 req/hr, professional tech photos
-✅ ENGINE 2 — Unsplash API   : FREE, 50 req/hr, curated professional photos
-✅ ENGINE 3 — Pollinations AI: FREE, enhanced AI generated pictures
+✅ ENGINE 1 — Pollinations AI: FREE, enhanced AI generated pictures
+✅ ENGINE 2 — Pexels API     : FREE, 200 req/hr, professional tech photos
+✅ ENGINE 3 — Unsplash API   : FREE, 50 req/hr, curated professional photos
 ✅ ENGINE 4 — SVG Generator  : ALWAYS works, no network needed, branded visuals
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -25,11 +25,12 @@ WHY THESE THREE:
              gradient background, and subtle AI-themed design elements.
 
 SETUP:
-  Engine 1 (Pexels):   Get free key at https://www.pexels.com/api/
-                        Set PEXELS_API_KEY in .env
-  Engine 2 (Unsplash): Get free key at https://unsplash.com/developers
-                        Set UNSPLASH_ACCESS_KEY in .env
-  Engine 3 (SVG):      No key needed — always works as guaranteed fallback
+  Engine 1 (Pollinations): No key needed — free AI generation
+  Engine 2 (Pexels):       Get free key at https://www.pexels.com/api/
+                           Set PEXELS_API_KEY in .env
+  Engine 3 (Unsplash):     Get free key at https://unsplash.com/developers
+                           Set UNSPLASH_ACCESS_KEY in .env
+  Engine 4 (SVG):          No key needed — always works as guaranteed fallback
 
 Only active when ENABLE_IMAGE_GENERATION=true.
 """
@@ -512,9 +513,10 @@ def generate_image(topic_title: str) -> Optional[str]:
     Fetch or generate a professional LinkedIn header image for the given topic.
 
     Engine waterfall (all live-tested 2026-03-17):
-      1. Pexels API   — FREE, professional photos, needs PEXELS_API_KEY
-      2. Unsplash API — FREE, curated photos,     needs UNSPLASH_ACCESS_KEY
-      3. SVG Engine   — FREE, always works,       no key needed
+      1. Pollinations AI — FREE, enhanced AI generated pictures, no key needed
+      2. Pexels API      — FREE, professional photos, needs PEXELS_API_KEY
+      3. Unsplash API    — FREE, curated photos,      needs UNSPLASH_ACCESS_KEY
+      4. SVG Engine      — FREE, always works,        no key needed
 
     Returns:
         Absolute path to the image file (jpg or svg), or None if all fail.
@@ -522,25 +524,25 @@ def generate_image(topic_title: str) -> Optional[str]:
     """
     logger.info("Image generation started for topic: '%s'", topic_title[:80])
 
-    # Engine 1: Pexels
-    logger.info("Trying Engine 1: Pexels API (FREE professional photos)…")
-    result = _fetch_pexels(topic_title)
-    if result:
-        logger.info("✅ Engine 1 (Pexels) succeeded.")
-        return result
-
-    # Engine 2: Unsplash
-    logger.info("Trying Engine 2: Unsplash API (FREE curated photos)…")
-    result = _fetch_unsplash(topic_title)
-    if result:
-        logger.info("✅ Engine 2 (Unsplash) succeeded.")
-        return result
-
-    # Engine 3: Pollinations AI
-    logger.info("Trying Engine 3: Pollinations AI (FREE AI generated photos)…")
+    # Engine 1: Pollinations AI
+    logger.info("Trying Engine 1: Pollinations AI (FREE AI generated photos)…")
     result = _fetch_pollinations(topic_title)
     if result:
-        logger.info("✅ Engine 3 (Pollinations AI) succeeded.")
+        logger.info("✅ Engine 1 (Pollinations AI) succeeded.")
+        return result
+
+    # Engine 2: Pexels
+    logger.info("Trying Engine 2: Pexels API (FREE professional photos)…")
+    result = _fetch_pexels(topic_title)
+    if result:
+        logger.info("✅ Engine 2 (Pexels) succeeded.")
+        return result
+
+    # Engine 3: Unsplash
+    logger.info("Trying Engine 3: Unsplash API (FREE curated photos)…")
+    result = _fetch_unsplash(topic_title)
+    if result:
+        logger.info("✅ Engine 3 (Unsplash) succeeded.")
         return result
 
     # Engine 4: SVG — always works

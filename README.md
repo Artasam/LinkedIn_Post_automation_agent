@@ -46,7 +46,7 @@ This project is a **production-ready multi-agent AI system** that runs fully on 
 5. Uses **Llama 3.3 70B Versatile** via Groq to select and write a compelling post
 6. Generates a professional, engagement-optimised post (max **300 words**)
 7. Adds **3–5** contextual AI hashtags
-8. Attaches a **professional image** via Pexels → Unsplash → Pollinations AI → SVG fallback
+8. Attaches a **professional image** via Pollinations AI → Pexels → Unsplash → SVG fallback
 9. Publishes to LinkedIn via the official **API v2**
 10. Runs automatically every Monday–Friday at **peak engagement hours** via GitHub Actions
 
@@ -127,9 +127,9 @@ This project is a **production-ready multi-agent AI system** that runs fully on 
                         │   NODE 5: generate_image    │
                         │   tools/image_tool.py       │
                         │                             │
-                        │  Engine 1: Pexels API       │
-                        │  Engine 2: Unsplash API     │
-                        │  Engine 3: Pollinations AI  │
+                        │  Engine 1: Pollinations AI  │
+                        │  Engine 2: Pexels API       │
+                        │  Engine 3: Unsplash API     │
                         │  Engine 4: SVG Generator    │
                         │  (SVG always succeeds)      │
                         └─────────────┬───────────────┘
@@ -258,12 +258,12 @@ All engines **live-tested and verified working** (2026-03-17).
 
 | # | Engine | Cost | Key | Quality |
 |---|--------|------|-----|---------|
-| 1 | **Pexels API** | Free 200 req/hr | `PEXELS_API_KEY` | Professional photography |
-| 2 | **Unsplash API** | Free 50 req/hr | `UNSPLASH_ACCESS_KEY` | Curated professional photos |
-| 3 | **Pollinations AI** | Always free | None needed | Enhanced AI generated pictures |
+| 1 | **Pollinations AI** | Always free | None needed | Enhanced AI generated pictures |
+| 2 | **Pexels API** | Free 200 req/hr | `PEXELS_API_KEY` | Professional photography |
+| 3 | **Unsplash API** | Free 50 req/hr | `UNSPLASH_ACCESS_KEY` | Curated professional photos |
 | 4 | **SVG Generator** | Always free | None needed | Clean branded header |
 
-**Waterfall:** Pexels → Unsplash → Pollinations AI → SVG. The SVG engine is pure Python (no network, no key) so **images are always generated** — the post is never text-only due to image failure.
+**Waterfall:** Pollinations AI → Pexels → Unsplash → SVG. The SVG engine is pure Python (no network, no key) so **images are always generated** — the post is never text-only due to image failure.
 
 ### Getting Free API Keys
 
