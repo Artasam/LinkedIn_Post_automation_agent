@@ -272,14 +272,54 @@ def _fetch_pollinations(topic_title: str) -> Optional[str]:
     Free, no API key required.
     """
     from urllib.parse import quote_plus
-    
-    prompt = f"Professional, enhanced, and realistic high-quality LinkedIn banner image about {topic_title}. No text in the image."
-    url = f"https://image.pollinations.ai/prompt/{quote_plus(prompt)}?width=1200&height=630&nologo=true"
-    
+
+    prompt = (
+        # 🎯 Core Subject
+        f"LinkedIn professional banner, subject: {topic_title}. "
+
+        # 📷 Camera & Lens
+        f"Shot on Hasselblad H6D-100c medium format camera, "
+        f"85mm f/1.4 prime lens, razor-sharp focus, zero motion blur, "
+
+        # 🌟 Lighting
+        f"volumetric cinematic lighting, dramatic rim lighting, "
+        f"HDR global illumination, ray-traced reflections, "
+        f"golden ratio light diffusion, god rays, "
+
+        # 🎨 Rendering & Quality
+        f"Unreal Engine 5 render quality, Octane render, "
+        f"8K ultra-high resolution, hyper-detailed textures, "
+        f"masterpiece quality, award-winning commercial photography, "
+
+        # 🖼️ Composition
+        f"wide cinematic panoramic composition, rule of thirds, "
+        f"foreground-midground-background depth layers, "
+        f"ultra-sharp foreground with subtle bokeh depth of field, "
+        f"dynamic symmetrical layout perfect for LinkedIn banner, "
+
+        # 🎭 Style & Aesthetic
+        f"Fortune 500 corporate brand aesthetic, "
+        f"modern sleek futuristic professional design, "
+        f"premium editorial magazine cover quality, "
+        f"trending on Behance and ArtStation, "
+        f"DaVinci Resolve cinematic color grade, "
+        f"sophisticated vibrant color palette with deep contrast, "
+
+        # 🚫 Strict No-Text
+        f"absolutely no text, no words, no letters, no numbers, "
+        f"no typography, no captions, no labels, no watermarks, "
+        f"no logos, no symbols, no inscriptions, text-free image only."
+    )
+
+    url = (
+        f"https://image.pollinations.ai/prompt/{quote_plus(prompt)}"
+        f"?width=2400&height=630&nologo=true&model=flux&enhance=true&seed=42"
+    )
+
     try:
         logger.info("Pollinations AI: generating image for '%s'…", topic_title[:50])
-        resp = requests.get(url, timeout=45)
-        
+        resp = requests.get(url, timeout=90)  # ⬆️ increased timeout for high-res
+
         if resp.status_code == 200 and len(resp.content) > 10000:
             logger.info("Pollinations AI: successfully generated image.")
             return _save_to_temp(resp.content, engine="pollinations")
@@ -287,7 +327,7 @@ def _fetch_pollinations(topic_title: str) -> Optional[str]:
             logger.warning("Pollinations AI returned HTTP %d or empty content.", resp.status_code)
     except requests.RequestException as exc:
         logger.warning("Pollinations AI request failed: %s", exc)
-        
+
     return None
 
 
