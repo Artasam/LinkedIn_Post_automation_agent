@@ -83,6 +83,9 @@ ARXIV_QUERIES = [
     "cat:cs.LG+AND+ti:transformer",
     "cat:cs.AI+AND+ti:multimodal",
     "cat:cs.AI+AND+ti:reasoning",
+    "cat:cs.CV",
+    "cat:cs.LG+AND+ti:reinforcement+learning",
+    "cat:cs.RO",
 ]
 
 
@@ -166,6 +169,9 @@ HN_QUERIES = [
     "machine learning",
     "neural",
     "AI",
+    "Data Science",
+    "MLOps",
+    "Statistics",
 ]
 
 
@@ -250,6 +256,7 @@ NEWS_QUERIES = [
     "large language model LLM",
     "OpenAI OR Anthropic OR Google DeepMind",
     "machine learning breakthrough",
+    "Data Science OR MLOps OR Neural Networks",
 ]
 
 
@@ -331,6 +338,9 @@ WIKI_SEARCH_TERMS = [
     "generative AI",
     "AI safety",
     "machine learning",
+    "computer vision",
+    "data science",
+    "reinforcement learning",
 ]
 
 
@@ -412,6 +422,9 @@ DDG_QUERIES = [
     "machine learning deep learning",
     "OpenAI Anthropic Google AI",
     "neural network research",
+    "MLOps and Data Engineering",
+    "Computer Vision advances",
+    "Data Science trends",
 ]
 
 

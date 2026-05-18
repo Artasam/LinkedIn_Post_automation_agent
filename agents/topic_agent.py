@@ -33,110 +33,62 @@ HIGH_VALUE_KEYWORDS = [
     "diffusion", "embedding", "inference", "quantization", "lora",
     "chain-of-thought", "vision", "speech", "agentic", "rlhf",
     "code", "programming", "developer", "api", "deployment",
+    "computer vision", "pytorch", "tensorflow", "scikit-learn", "mlops",
+    "data engineering", "reinforcement learning", "ethics", "bias",
+    "tabular", "time series",
 ]
 
 # ─── 10 Rotating Fallback Topics (practitioner-focused) ───────────────────────
 FALLBACK_TOPICS = [
     {
+        "title": "Why Data Quality is the New Model Quality",
+        "summary": "Everyone is obsessed with model architecture, but the reality is that data quality drives 80% of performance. MLOps teams are shifting focus from tweaking hyperparameters to building robust data validation pipelines.",
+        "source": "MLOps Community",
+    },
+    {
+        "title": "The Hidden Challenges of Time Series Forecasting in Production",
+        "summary": "While LLMs get all the hype, time series forecasting remains critical for most businesses. Moving from a static notebook to a dynamic, production-ready forecasting pipeline exposes challenges in feature drift and latency.",
+        "source": "Data Science Weekly",
+    },
+    {
+        "title": "Computer Vision Beyond the Basics: Edge Deployments",
+        "summary": "Deploying computer vision models on edge devices requires severe optimizations like quantization and pruning. The real engineering challenge isn't training the model, it's making it run fast on constrained hardware.",
+        "source": "Computer Vision Engineering",
+    },
+    {
         "title": "Why RAG Is Replacing Fine-Tuning for Most Enterprise AI Teams",
-        "summary": (
-            "Enterprise AI teams are abandoning fine-tuning in favour of "
-            "retrieval-augmented generation. The economics are compelling: "
-            "RAG updates in hours, costs 90% less, and outperforms fine-tuned "
-            "models on domain knowledge tasks. Vector databases like Pinecone "
-            "and pgvector are now standard infrastructure."
-        ),
+        "summary": "Enterprise AI teams are abandoning fine-tuning in favour of retrieval-augmented generation. RAG updates in hours, costs 90% less, and outperforms fine-tuned models on domain knowledge tasks.",
         "source": "AI Engineering Community",
     },
     {
-        "title": "The Real Reason Most LLM Production Deployments Fail",
-        "summary": (
-            "80% of LLM pilots never reach production. The culprit is rarely "
-            "the model — it's evaluation frameworks, latency budgets, and "
-            "hallucination rates that teams discover too late. Building "
-            "proper evals before deployment is the new non-negotiable."
-        ),
+        "title": "The Real Reason Most MLOps Deployments Fail",
+        "summary": "80% of ML pilots never reach production. The culprit is rarely the model — it's lack of monitoring, data drift, and inadequate CI/CD pipelines for machine learning code.",
         "source": "MLOps Practitioners",
     },
     {
-        "title": "Llama 3 vs GPT-4: What the Benchmarks Don't Tell You",
-        "summary": (
-            "Benchmark scores mislead practitioners. Llama 3 70B outperforms "
-            "GPT-4 on coding tasks, matches it on reasoning, but struggles "
-            "with multi-turn instruction following. The model choice depends "
-            "on your specific task, not general leaderboard rankings."
-        ),
-        "source": "Open Source AI Community",
+        "title": "Reinforcement Learning in the Real World",
+        "summary": "RL is notoriously difficult to stabilize. But new techniques are finally making it viable for supply chain optimization and robotics, moving it out of the research lab and into production systems.",
+        "source": "Applied RL Community",
     },
     {
         "title": "AI Agents Are Breaking in Production — Here's Why",
-        "summary": (
-            "Agentic AI systems fail in production for predictable reasons: "
-            "tool call loops, context window exhaustion, and inability to "
-            "recover from partial failures. Teams building reliable agents "
-            "need structured state management, not just bigger context windows."
-        ),
+        "summary": "Agentic AI systems fail in production for predictable reasons: tool call loops, context window exhaustion, and inability to recover from partial failures.",
         "source": "AI Engineering Weekly",
     },
     {
-        "title": "The Hidden Cost of Running LLMs That Nobody Talks About",
-        "summary": (
-            "API costs are the visible cost. Hidden costs include: prompt "
-            "engineering time (50+ hours per use case), evaluation pipelines, "
-            "output validation, and the 3am incident when the model starts "
-            "hallucinating in production. Total AI cost is 3-5x the API bill."
-        ),
-        "source": "AI Cost Analysis Report",
+        "title": "The Hidden Cost of Running ML Models That Nobody Talks About",
+        "summary": "API and compute costs are just the beginning. Hidden costs include evaluation pipelines, output validation, and the 3am incident when the data pipeline breaks.",
+        "source": "MLOps Cost Analysis",
     },
     {
-        "title": "Why AI Safety Research Finally Matters to Practitioners",
-        "summary": (
-            "AI safety is no longer just philosophy. RLHF, Constitutional AI, "
-            "and interpretability tools are now standard parts of model "
-            "training pipelines. Teams ignoring alignment are shipping models "
-            "that behave unpredictably in edge cases — with real consequences."
-        ),
-        "source": "AI Safety Research",
-    },
-    {
-        "title": "The Prompt Engineering Era Is Over — What Comes Next",
-        "summary": (
-            "Prompt engineering is table stakes now. The teams winning in 2025 "
-            "are those with proprietary fine-tuned models, unique datasets, "
-            "and systematic evaluation pipelines. The competitive moat has "
-            "shifted from clever prompts to data and evaluation infrastructure."
-        ),
-        "source": "AI Strategy Insights",
-    },
-    {
-        "title": "AI Code Assistants Changed My Team's Workflow — Not How You Think",
-        "summary": (
-            "GitHub Copilot and Cursor increased velocity by 40%, but changed "
-            "the role of senior engineers. They now spend more time on "
-            "architecture, code review, and AI output validation — less on "
-            "implementation. Junior engineers are writing more code than ever."
-        ),
-        "source": "Developer Productivity Research",
+        "title": "Addressing Bias in Tabular Data Models",
+        "summary": "While AI safety focuses heavily on generative models, traditional tabular models in finance and healthcare often harbor dangerous biases. Robust fairness testing is becoming a mandatory step.",
+        "source": "AI Ethics Research",
     },
     {
         "title": "The Vector Database Landscape in 2025: What Actually Works",
-        "summary": (
-            "Pinecone, Weaviate, Qdrant, and pgvector each have real tradeoffs "
-            "that benchmarks hide. Pinecone wins on managed simplicity, "
-            "pgvector wins on existing PostgreSQL stacks, Qdrant wins on "
-            "self-hosted performance. The right choice depends on your query patterns."
-        ),
+        "summary": "Pinecone, Weaviate, Qdrant, and pgvector each have real tradeoffs that benchmarks hide. The right choice depends on your query patterns.",
         "source": "Database Engineering Community",
-    },
-    {
-        "title": "Multimodal AI Is Changing What 'Senior AI Engineer' Means",
-        "summary": (
-            "GPT-4V, Gemini 1.5, and Claude 3 process images, audio, and "
-            "video natively. This unlocks document processing, quality control, "
-            "and medical imaging use cases that weren't viable 18 months ago. "
-            "AI engineers who only know text models are already behind."
-        ),
-        "source": "AI Technology Review",
     },
 ]
 
@@ -196,7 +148,7 @@ def _weighted_random_pick(articles: list, pool_size: int = 12) -> list:
         return pool
 
 
-def select_topics_with_llm(articles: list, n: int = 3) -> list:
+def select_topics_with_llm(articles: list, n: int = 3, history_summary: str = "") -> list:
     """
     Use Groq LLM to select and REFRAME the N best topics for LinkedIn.
 
@@ -228,7 +180,9 @@ def select_topics_with_llm(articles: list, n: int = 3) -> list:
             "2. Prefer topics with real-world impact over theoretical research\n"
             "3. Avoid topics that are too niche or too academic\n"
             "4. Each topic must be distinctly different from the others\n"
-            "5. Reframe the title as a LinkedIn-friendly hook, not a paper title"
+            "5. Reframe the title as a LinkedIn-friendly hook, not a paper title\n"
+            "6. NEVER use words like 'Revolutionizing' or 'Unlocking' in titles.\n"
+            "7. Strictly prioritize topics that haven't been covered recently in the provided history."
         )),
         HumanMessage(content=(
             f"From these AI articles, select the {n} most compelling topics "
@@ -237,6 +191,7 @@ def select_topics_with_llm(articles: list, n: int = 3) -> list:
             f"TOPIC: <LinkedIn-friendly title — not the paper title>\n"
             f"SUMMARY: <2-3 sentences explaining the practitioner impact>\n"
             f"SOURCE: <source name>\n\n"
+            f"Recent Post History:\n{history_summary}\n\n"
             f"Articles:\n{catalogue}\n\n"
             f"CRITICAL: Rewrite academic titles as practitioner insights.\n"
             f"Example: 'EndoCoT: Scaling Endogenous Chain-of-Thought' → "
@@ -298,7 +253,8 @@ def run_topic_agent() -> list:
     Entry point for the Topic Agent.
     Returns list of LinkedIn-reframed topic dicts.
     """
-    logger.info("Post History:\n%s", get_history_summary())
+    history_str = get_history_summary()
+    logger.info("Post History:\n%s", history_str)
     logger.info("Topic Agent: Fetching from multi-source news tool…")
 
     articles = fetch_all_news(max_per_source=settings.RSS_MAX_ARTICLES_PER_FEED)
@@ -315,4 +271,4 @@ def run_topic_agent() -> list:
 
     diverse = _weighted_random_pick(fresh, pool_size=12)
 
-    return select_topics_with_llm(diverse, n=settings.TOPIC_CANDIDATE_COUNT)
+    return select_topics_with_llm(diverse, n=settings.TOPIC_CANDIDATE_COUNT, history_summary=history_str)
