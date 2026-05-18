@@ -46,7 +46,7 @@ This project is a **production-ready multi-agent AI system** that runs fully on 
 5. Uses **Llama 3.3 70B Versatile** via Groq to select and write a compelling post
 6. Generates a professional, engagement-optimised post (max **300 words**)
 7. Adds **3–5** contextual AI hashtags
-8. Attaches a **professional image** via Pexels → Unsplash → SVG fallback
+8. Attaches a **professional image** via Pexels → Unsplash → Pollinations AI → SVG fallback
 9. Publishes to LinkedIn via the official **API v2**
 10. Runs automatically every Monday–Friday at **peak engagement hours** via GitHub Actions
 
@@ -129,7 +129,8 @@ This project is a **production-ready multi-agent AI system** that runs fully on 
                         │                             │
                         │  Engine 1: Pexels API       │
                         │  Engine 2: Unsplash API     │
-                        │  Engine 3: SVG Generator    │
+                        │  Engine 3: Pollinations AI  │
+                        │  Engine 4: SVG Generator    │
                         │  (SVG always succeeds)      │
                         └─────────────┬───────────────┘
                                       │
@@ -210,11 +211,11 @@ The topic selection prompt explicitly requires:
 ### 1. Rotating Post Formats (`agents/content_agent.py`)
 To prevent audience fatigue, the agent rotates through 7 different post formats based on the day of the week (e.g., Hot Take on Monday, Breakdown on Tuesday, Myth Buster on Thursday).
 
-### 2. Practitioner Focus (`agents/topic_agent.py`)
-Topics are explicitly rewritten by the LLM prior to drafting. It restructures dry academic paper titles into practitioner-oriented insights that engineers and leaders actually care about.
+### 2. Pragmatic Practitioner Persona (`agents/topic_agent.py`, `agents/content_agent.py`)
+Topics are explicitly rewritten by the LLM prior to drafting. It restructures dry academic paper titles into practitioner-oriented insights. The agent adopts a "Pragmatic Practitioner" persona, sharing field notes and often including brief "Personal Stories" or "Specific Use Cases" from the trenches to humanize the content.
 
 ### 3. Readability & Engagement Formatting
-Posts are penalized for writing heavy blocks of text. The agent is forced to use hard carriage returns and blank lines for algorithmic readability, avoiding "banned" repetitive corporate buzzwords like *Revolutionizing*, *Leverage*, or *Game-changing*.
+Posts are penalized for writing heavy blocks of text. The agent is forced to use hard carriage returns and blank lines for algorithmic readability, strictly avoiding "banned" repetitive corporate buzzwords like *Revolutionizing*, *Leverage*, *Game-changing*, and AI fluff phrases like *In the rapidly evolving world of*.
 
 ---
 
@@ -224,11 +225,11 @@ All 6 sources use direct **REST APIs** (not RSS). Works even when RSS feeds are 
 
 | # | Source | Key | Weight | Filter |
 |---|--------|-----|--------|--------|
-| 1 | **ArXiv** | ❌ None | 4 | CS.AI + CS.LG + CS.CL, last 7 days |
-| 2 | **HackerNews** | ❌ None | 3 | Score > 20, last 7 days |
+| 1 | **ArXiv** | ❌ None | 4 | CV, RL, Robotics, NLP, last 7 days |
+| 2 | **HackerNews** | ❌ None | 3 | ML, Data Science, MLOps, Statistics |
 | 3 | **GitHub Trending** | ❌ Optional | 3 | Stars > 50, created last 7 days |
 | 4 | **NewsAPI** | ✅ Free | 3 | 100 req/day at newsapi.org |
-| 5 | **Wikipedia** | ❌ None | 2 | Recent AI article updates |
+| 5 | **Wikipedia** | ❌ None | 2 | AI, ML, CV, Data Science updates |
 | 6 | **DuckDuckGo** | ❌ None | 1–2 | Instant answers, no rate limit |
 
 **Relevance scoring:**
@@ -248,7 +249,6 @@ All engines **live-tested and verified working** (2026-03-17).
 
 | Engine | Status | Reason |
 |--------|--------|--------|
-| Pollinations AI | ❌ Removed | HTTP 500 — server unstable |
 | HuggingFace FLUX.1-dev | ❌ Removed | HTTP 410 — moved to paid tier |
 | HuggingFace FLUX.1-schnell | ❌ Removed | HTTP 410 — moved to paid tier |
 | Together AI | ❌ Removed | HTTP 402 — credits required |
@@ -260,9 +260,10 @@ All engines **live-tested and verified working** (2026-03-17).
 |---|--------|------|-----|---------|
 | 1 | **Pexels API** | Free 200 req/hr | `PEXELS_API_KEY` | Professional photography |
 | 2 | **Unsplash API** | Free 50 req/hr | `UNSPLASH_ACCESS_KEY` | Curated professional photos |
-| 3 | **SVG Generator** | Always free | None needed | Clean branded header |
+| 3 | **Pollinations AI** | Always free | None needed | Enhanced AI generated pictures |
+| 4 | **SVG Generator** | Always free | None needed | Clean branded header |
 
-**Waterfall:** Pexels → Unsplash → SVG. The SVG engine is pure Python (no network, no key) so **images are always generated** — the post is never text-only due to image failure.
+**Waterfall:** Pexels → Unsplash → Pollinations AI → SVG. The SVG engine is pure Python (no network, no key) so **images are always generated** — the post is never text-only due to image failure.
 
 ### Getting Free API Keys
 
