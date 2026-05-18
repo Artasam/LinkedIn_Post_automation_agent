@@ -20,12 +20,24 @@ from workflow.agent_graph import run_pipeline
 
 def setup_logging() -> None:
     """Configure logging to stdout (and optionally a file)."""
+    # Force UTF-8 encoding on standard streams to support emojis and unicode formatting on Windows
+    if hasattr(sys.stdout, "reconfigure"):
+        try:
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+    if hasattr(sys.stderr, "reconfigure"):
+        try:
+            sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+
     level = getattr(logging, LOG_LEVEL.upper(), logging.INFO)
     handlers = [logging.StreamHandler(sys.stdout)]
 
     if LOG_TO_FILE:
         os.makedirs(os.path.dirname(LOG_FILE_PATH), exist_ok=True)
-        handlers.append(logging.FileHandler(LOG_FILE_PATH))
+        handlers.append(logging.FileHandler(LOG_FILE_PATH, encoding="utf-8"))
 
     logging.basicConfig(
         level=level,
