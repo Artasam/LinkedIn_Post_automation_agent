@@ -1,11 +1,5 @@
 [
   {
-    "title": "How to Boost Video Quality with AI-Powered Diffusion Models",
-    "source": "ArXiv Research",
-    "post_id": "urn:li:share:7447519731793870848",
-    "published_at": "2026-04-08T05:44:32.717003+00:00"
-  },
-  {
     "title": "How to Make Large Language Models More Persuasive in Multi-Agent Debates",
     "source": "Nature.com",
     "post_id": "urn:li:share:7447882020405485568",
@@ -178,5 +172,11 @@
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7462147138567925760",
     "published_at": "2026-05-18T14:28:38.303879+00:00"
+  },
+  {
+    "title": "How AI Can Influence Group Decision-Making",
+    "source": "ArXiv Research",
+    "post_id": "urn:li:share:7462148551628947456",
+    "published_at": "2026-05-18T14:34:14.973564+00:00"
   }
 ]
