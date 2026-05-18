@@ -181,3 +181,58 @@ def get_history_summary() -> str:
         title = entry.get("title", "")[:70]
         lines.append(f"  {i:2}. [{date}] {title}")
     return "\n".join(lines)
+
+
+def merge_history_files(local_path: str, remote_path: str = "post_history.json") -> None:
+    """
+    Merge local history backup with the remote/latest history file on disk.
+    Ensures no duplicate entries (based on title and published_at) and keeps the last MAX_HISTORY entries.
+    """
+    local_file = Path(local_path)
+    remote_file = Path(remote_path)
+    
+    if not local_file.exists():
+        logger.error("Local backup file %s not found.", local_path)
+        return
+        
+    r_hist = []
+    if remote_file.exists():
+        try:
+            with open(remote_file, 'r', encoding='utf-8') as f:
+                r_hist = json.load(f)
+                if not isinstance(r_hist, list):
+                    r_hist = []
+        except Exception as e:
+            logger.warning("Failed to read remote history: %s", e)
+            
+    try:
+        with open(local_file, 'r', encoding='utf-8') as f:
+            l_hist = json.load(f)
+            if not isinstance(l_hist, list):
+                l_hist = []
+    except Exception as e:
+        logger.error("Failed to read local backup: %s", e)
+        l_hist = []
+        
+    seen = set()
+    merged = []
+    for item in r_hist + l_hist:
+        title = item.get('title', '').strip().lower()
+        published = item.get('published_at', '')
+        key = (title, published)
+        if key not in seen:
+            seen.add(key)
+            merged.append(item)
+            
+    try:
+        merged.sort(key=lambda x: x.get('published_at', ''))
+    except Exception as e:
+        logger.warning("Failed to sort merged history: %s", e)
+        
+    trimmed = merged[-MAX_HISTORY:]
+    try:
+        with open(remote_file, 'w', encoding='utf-8') as f:
+            json.dump(trimmed, f, indent=2, default=str)
+        logger.info("Merged history successfully. Total entries: %d", len(trimmed))
+    except OSError as exc:
+        logger.error("Could not save merged history: %s", exc)

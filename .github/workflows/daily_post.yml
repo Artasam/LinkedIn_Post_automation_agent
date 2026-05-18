@@ -174,54 +174,8 @@ jobs:
             git pull origin ${{ github.ref_name }} --no-rebase || git pull origin ${{ github.ref_name }} --rebase
 
             echo "Merging local and remote post history..."
-            python -c "
-import json
-from pathlib import Path
-local_file = Path('post_history_local.json.tmp')
-remote_file = Path('post_history.json')
-if not local_file.exists():
-    print('Local backup not found!')
-    exit(1)
-    
-r_hist = []
-if remote_file.exists():
-    try:
-        with open(remote_file, 'r', encoding='utf-8') as f:
-            r_hist = json.load(f)
-            if not isinstance(r_hist, list):
-                r_hist = []
-    except Exception as e:
-        print(f'Warning: failed to read remote history: {e}')
+            python -c "from tools.history_tool import merge_history_files; merge_history_files('post_history_local.json.tmp')"
 
-try:
-    with open(local_file, 'r', encoding='utf-8') as f:
-        l_hist = json.load(f)
-        if not isinstance(l_hist, list):
-            l_hist = []
-except Exception as e:
-    print(f'Error reading local backup: {e}')
-    l_hist = []
-
-seen = set()
-merged = []
-for item in r_hist + l_hist:
-    title = item.get('title', '').strip().lower()
-    published = item.get('published_at', '')
-    key = (title, published)
-    if key not in seen:
-        seen.add(key)
-        merged.append(item)
-
-try:
-    merged.sort(key=lambda x: x.get('published_at', ''))
-except:
-    pass
-
-merged = merged[-30:]
-with open(remote_file, 'w', encoding='utf-8') as f:
-    json.dump(merged, f, indent=2)
-print(f'Post history merged successfully. Total entries: {len(merged)}')
-"
             git add post_history.json
             if git diff --staged --quiet; then
               echo "No changes to post_history.json — skipping push."
