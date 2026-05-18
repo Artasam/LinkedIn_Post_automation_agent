@@ -5,14 +5,14 @@ Professional Image Fetcher for LinkedIn Posts.
 
 LIVE-TESTED ENGINES (2026-03-17):
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-❌ Pollinations AI   — HTTP 500 (server unstable, removed)
 ❌ HuggingFace FLUX  — HTTP 410 (models moved to paid tier)
 ❌ Together AI       — HTTP 402 (credits required)
 ❌ Stability AI      — HTTP 402 (paid subscription required)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅ ENGINE 1 — Pexels API     : FREE, 200 req/hr, professional tech photos
 ✅ ENGINE 2 — Unsplash API   : FREE, 50 req/hr, curated professional photos
-✅ ENGINE 3 — SVG Generator  : ALWAYS works, no network needed, branded visuals
+✅ ENGINE 3 — Pollinations AI: FREE, enhanced AI generated pictures
+✅ ENGINE 4 — SVG Generator  : ALWAYS works, no network needed, branded visuals
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 WHY THESE THREE:
@@ -262,7 +262,37 @@ def _fetch_unsplash(topic_title: str) -> Optional[str]:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# ENGINE 3 — SVG Generator (ALWAYS WORKS — no network, no key, pure Python)
+# ENGINE 3 — Pollinations AI (FREE, AI generated enhanced pictures)
+# Generates realistic AI images from text prompts.
+# ══════════════════════════════════════════════════════════════════════════════
+
+def _fetch_pollinations(topic_title: str) -> Optional[str]:
+    """
+    Generate an enhanced and realistic picture using Pollinations AI.
+    Free, no API key required.
+    """
+    from urllib.parse import quote_plus
+    
+    prompt = f"Professional, enhanced, and realistic high-quality LinkedIn banner image about {topic_title}. No text in the image."
+    url = f"https://image.pollinations.ai/prompt/{quote_plus(prompt)}?width=1200&height=630&nologo=true"
+    
+    try:
+        logger.info("Pollinations AI: generating image for '%s'…", topic_title[:50])
+        resp = requests.get(url, timeout=45)
+        
+        if resp.status_code == 200 and len(resp.content) > 10000:
+            logger.info("Pollinations AI: successfully generated image.")
+            return _save_to_temp(resp.content, engine="pollinations")
+        else:
+            logger.warning("Pollinations AI returned HTTP %d or empty content.", resp.status_code)
+    except requests.RequestException as exc:
+        logger.warning("Pollinations AI request failed: %s", exc)
+        
+    return None
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# ENGINE 4 — SVG Generator (ALWAYS WORKS — no network, no key, pure Python)
 # Generates a clean branded LinkedIn header with the topic title.
 # ══════════════════════════════════════════════════════════════════════════════
 
@@ -466,11 +496,18 @@ def generate_image(topic_title: str) -> Optional[str]:
         logger.info("✅ Engine 2 (Unsplash) succeeded.")
         return result
 
-    # Engine 3: SVG — always works
-    logger.info("Trying Engine 3: SVG Generator (no network required)…")
+    # Engine 3: Pollinations AI
+    logger.info("Trying Engine 3: Pollinations AI (FREE AI generated photos)…")
+    result = _fetch_pollinations(topic_title)
+    if result:
+        logger.info("✅ Engine 3 (Pollinations AI) succeeded.")
+        return result
+
+    # Engine 4: SVG — always works
+    logger.info("Trying Engine 4: SVG Generator (no network required)…")
     result = _generate_svg(topic_title)
     if result:
-        logger.info("✅ Engine 3 (SVG) succeeded.")
+        logger.info("✅ Engine 4 (SVG) succeeded.")
         return result
 
     # Should never reach here since SVG always works
