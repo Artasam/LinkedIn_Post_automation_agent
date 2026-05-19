@@ -1,11 +1,5 @@
 [
   {
-    "title": "How to Generate High-Quality Images Without Inversion",
-    "source": "ArXiv Research",
-    "post_id": "urn:li:share:7448261981897400321",
-    "published_at": "2026-04-10T06:53:59.288726+00:00"
-  },
-  {
     "title": "How to Stop Your AI Model from Hallucinating: Decoupled Confidence Calibration for Large Vision-Language Models",
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7449331258284777472",
@@ -178,5 +172,11 @@
     "source": "C-sharpcorner.com",
     "post_id": "urn:li:share:7462197224769413121",
     "published_at": "2026-05-18T17:47:39.694730+00:00"
+  },
+  {
+    "title": "How to Improve Multimodal Large Language Models with Fine-Grained Visual Understanding",
+    "source": "ArXiv Research",
+    "post_id": "urn:li:share:7462409201076563968",
+    "published_at": "2026-05-19T07:49:59.332374+00:00"
   }
 ]
