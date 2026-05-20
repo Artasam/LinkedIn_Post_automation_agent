@@ -1,11 +1,5 @@
 [
   {
-    "title": "How to Stop Your AI Model from Hallucinating: Decoupled Confidence Calibration for Large Vision-Language Models",
-    "source": "ArXiv Research",
-    "post_id": "urn:li:share:7449331258284777472",
-    "published_at": "2026-04-13T05:42:54.152294+00:00"
-  },
-  {
     "title": "How AI Can Mimic Human Personalities to Improve Language Models",
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7449696980534063104",
@@ -178,5 +172,11 @@
     "source": "ArXiv Research",
     "post_id": "urn:li:share:7462409201076563968",
     "published_at": "2026-05-19T07:49:59.332374+00:00"
+  },
+  {
+    "title": "How to Improve Vision-Language Models by Separating Perception and Reasoning",
+    "source": "ArXiv Research",
+    "post_id": "urn:li:share:7462772432081342465",
+    "published_at": "2026-05-20T07:53:19.979416+00:00"
   }
 ]
